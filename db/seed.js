@@ -1,6 +1,6 @@
-const client = require('./client');
+const pool = require('./queries');
 const { rebuildDB, testDB } = require('./seedData');
 
 rebuildDB()
   .catch(console.error)
-  .finally(() => client.end());
+  .finally(() => pool.end());

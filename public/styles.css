@@ -1,0 +1,11 @@
+#game-container{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+}
+
+.card{
+    width: 300px;
+    border: 1px solid black;
+}

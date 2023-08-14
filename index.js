@@ -15,8 +15,8 @@ const cors = require('cors');
 app.use(cors());
 
 // init db client
-const client = require('./db/client');
-client.connect();
+const pool = require('./db/queries');
+pool.connect();
 
 app.get('/', (req, res) => {
     res.send('Hello World!');

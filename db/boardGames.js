@@ -1,10 +1,10 @@
-const client = require('./client');
+const pool = require('./queries');
 const util = require('util');
 
 // GET - /api/board-games - get all board games
 async function getAllBoardGames() {
     try {
-        const { rows } = await client.query(`
+        const { rows } = await pool.query(`
             SELECT * FROM boardgames;
         `);
         return rows;
@@ -16,7 +16,7 @@ async function getAllBoardGames() {
 // GET - /api/board-games/:id - get a single board game by id
 async function getBoardGameById(id) {
     try {
-        const { rows: [boardGame] } = await client.query(`
+        const { rows: [boardGame] } = await pool.query(`
             SELECT * FROM boardgames
             WHERE id = $1;
         `, [id]);
@@ -30,7 +30,7 @@ async function getBoardGameById(id) {
 async function createBoardGame(body) {
     const { name, description, price, inStock, isPopular, imgUrl } = body;
     try {
-        const { rows: [boardGame] } = await client.query(`
+        const { rows: [boardGame] } = await pool.query(`
 
             INSERT INTO boardgames(name, description, price, "inStock", "isPopular", "imgUrl")
             VALUES($1, $2, $3, $4, $5, $6)
@@ -49,7 +49,7 @@ async function updateBoardGame(id, fields = {}) {
         return;
     }
     try {
-        const { rows: [boardGame] } = await client.query(`
+        const { rows: [boardGame] } = await pool.query(`
             UPDATE boardgames
             SET ${setString}
             WHERE id=${id}
@@ -64,7 +64,7 @@ async function updateBoardGame(id, fields = {}) {
 // DELETE - /api/board-games/:id - delete a single board game by id
 async function deleteBoardGame(id) {
     try {
-        const { rows: [boardGame] } = await client.query(`
+        const { rows: [boardGame] } = await pool.query(`
             DELETE FROM boardgames
             WHERE id=$1
             RETURNING *;
