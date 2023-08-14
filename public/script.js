@@ -90,15 +90,3 @@ data.forEach(element => {
     
     
     */
-
-export function App(){
-    const [ games , setGames] = useState([]);
-
-    const getAllVideoGames= async () =>{
-        const req = await fetch('https://localhost')
-    }
-    useEffect(()=>{
-        const games = getAllVideoGames();
-        setGames(games); 
-    },[])
-}
